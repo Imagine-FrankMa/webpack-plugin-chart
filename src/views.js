@@ -11,7 +11,7 @@ module.exports = {
 }
 
 app.get('/', (req, res) => {
-  res.send(__dirname + '/index.html')
+  res.send('hello 树哥' )
 })
 
 app.listen(8900, () => {
@@ -33,14 +33,9 @@ console.log('abc');
   const server = http.createServer((req, res) => {
     // console.log('req',req);
     // console.log('res',res);
-    res.writeHead(200, { 'Content-Type': 'text/html' ,
-                        'Connection': 'Upgrade' ,
-                        'Upgrade': 'websocket' ,})
+    res.writeHead(200, { 'Content-Type': 'text/html' })
     // console.log('compilation',compilation.assets);
-    // const html=renderView(compilation,reportTitle)
-    app.get('/', function (req, res) {
-      res.end(fs.readFile(__dirname + '/index.html'));
-    });
+    // const html=renderView(compilation,reportTitle
   })
 
 
