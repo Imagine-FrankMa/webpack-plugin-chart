@@ -2,90 +2,121 @@ const http=require('http')
 const open=require('opener')
 const WebSocket = require('ws');
 var app = require('express')();
-const fs=require('fs')
-// const  renderView=require('../client/render')
 
 module.exports = {
   startServer
 
 }
 
-app.get('/', (req, res) => {
-  res.send('hello 树哥' )
+app.use((req,res,next)=>{
+  console.log('req,res',);
+  next()
 })
 
-app.listen(8900, () => {
+
+app.get('/', (req, res) => {
+  res.set('Content-Type','text/html');
+
+	const data = new Date();
+	const html = `
+	<html>
+		<head>
+			<title>资源查看大师</title>
+		</head>
+		<body>
+			<h1 >login and now: ${data}</h1>
+      <div id="app" ></div>
+      <script type="text/javascript">
+      
+      try {
+        ws = new WebSocket('ws://127.0.0.1:2048');
+        console.log(ws,'ws');
+    } catch (err) {
+      console.warn(
+        "Couldn't connect to analyzer websocket server so you'll have to reload page manually to see updates in the treemap"
+      );
+    }
+
+        ws.onopen = function() {    
+          alert("websocke 已经链接好了");    
+          ws.send("I'm client");    
+      };    
+          
+    
+          
+      ws.onclose = function() {    
+          alert("Closed");    
+      };    
+          
+      ws.onerror = function(err) {    
+          alert("Error: " + err);    
+      };
+      var box = document.getElementById('app'); //获取 box
+      ws.onmessage = function (evt) { 
+        console.log(evt,'evt')
+        box.innerHTML= JSON.stringify(evt.data)
+ 
+     };   
+
+    </script>
+
+		</body>
+
+	</html>
+	`
+	return res.send(html)
+})
+
+app.listen({port:8900}, () => {
   console.log(`Example app listening at http://localhost:${8900}`)
 })
 
 async function startServer(compilation, opts) {
+  console.log('compilation');
+  
   const {
     analyzerPort = 8888,
     host = '127.0.0.1',
-    // reportTitle = 'this is giao'
+    reportTitle = 'this is giao',
+    WebSocketPort=2048
   } = opts || {};
-
- 
-console.log('abc');
-
 
 // http 应用用于打开页面  websocket 用于通讯
   const server = http.createServer((req, res) => {
-    // console.log('req',req);
-    // console.log('res',res);
     res.writeHead(200, { 'Content-Type': 'text/html' })
-    // console.log('compilation',compilation.assets);
-    // const html=renderView(compilation,reportTitle
   })
-
-
-
+    // 服务端websocket
 
   new Promise(resolve => {
     server.listen(analyzerPort, host, () => {
       const url = `http://${host}:${analyzerPort}`;
-      console.log('浏览器启动le');
       
       open(url);
       resolve('')
 
     });
   }).then(()=>{
-
-    console.log('test'); // 服务端websocket
-
-    const wss = new WebSocket.Server(server)
     
-    open(url);
-    
-    
+    const wss = new WebSocket.Server({port:WebSocketPort})
     wss.on('connection', ws => {
-      console.log('connection');
-      
       ws.on('error', err => {
-        // Ignore network errors like `ECONNRESET`, `EPIPE`, etc.
-        console.log('err', err);
-  
         if (err.errno) return;
-  
       });
 
       ws.on('message', function incoming(message) {
         console.log('server: received: %s', message);
     });
-
-      ws.send('world');
-
+    console.log('compilation',compilation);
+    
+    
+       ws.send(compilation+'');
       return {
         ws: wss,
         http: server,
       };
-    
-    });
-
-   
-    
+  })
     
   })
+
   
 }

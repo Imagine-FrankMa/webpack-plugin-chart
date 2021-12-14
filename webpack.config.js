@@ -1,7 +1,7 @@
 const path=require('path')
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './client/viewer',
 
     output: {
         path: path.resolve(__dirname, './dist'),

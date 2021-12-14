@@ -11,7 +11,8 @@ const viewer=require('./views')
       reportTitle: 'yaya',
       // deprecated
       // analyzerPort: 'analyzerPort' in opts ? (opts.analyzerPort === 'auto' ? 0 : opts.analyzerPort) : 9900 ,   
-      analyzerPort:8900
+      analyzerPort:8900,
+      webSocketPort:2048
      }
     this.server = null;
   }
@@ -43,6 +44,7 @@ const viewer=require('./views')
         host: this.opts.analyzerHost,
         reportTitle: this.opts.reportTitle,
         analyzerPort:this.opts.analyzerPort,
+        webSocketPort:this.opts.webSocketPort
       });
     }
   }
