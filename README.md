@@ -1,8 +1,4 @@
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![deps][deps]][deps-url]
-[![tests][tests]][tests-url]
-[![downloads][downloads]][downloads-url]
+
 
 <div align="center">
   <a href="https://github.com/webpack/webpack">
@@ -17,28 +13,27 @@
 
 ```bash
 # NPM
-npm install --save-dev webpack-bundle-analyzer
+npm install --save-dev webpack-plugin-chart
 # Yarn
-yarn add -D webpack-bundle-analyzer
+yarn add -D webpack-plugin-chart
 ```
 
 <h2 align="center">Usage (as a plugin)</h2>
 
 ```js
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const  WebpackPluginChart= require('webpack-plugin-chart');
 
 module.exports = {
   plugins: [
-    new BundleAnalyzerPlugin()
+    new  WebpackPluginChart()
   ]
 }
 ```
 
 It will create an interactive treemap visualization of the contents of all your bundles.
 
-![webpack bundle analyzer zoomable treemap](https://cloud.githubusercontent.com/assets/302213/20628702/93f72404-b338-11e6-92d4-9a365550a701.gif)
 
-This module will help you:
+功能与使用:
 
 1. Realize what's *really* inside your bundle
 2. Find out what modules make up the most of its size
@@ -94,131 +89,3 @@ webpack-bundle-analyzer bundle/output/path/stats.json
 
 <h2 align="center">Options (for CLI)</h2>
 
-```bash
-webpack-bundle-analyzer <bundleStatsFile> [bundleDir] [options]
-```
-
-Arguments are documented below:
-
-### `bundleStatsFile`
-
-Path to webpack stats JSON file
-
-### `bundleDir`
-
-Directory containing all generated bundles.
-
-### `options`
-
-```
-  -V, --version               output the version number
-  -m, --mode <mode>           Analyzer mode. Should be `server`, `static` or `json`.
-                              In `server` mode analyzer will start HTTP server to show bundle report.
-                              In `static` mode single HTML file with bundle report will be generated.
-                              In `json` mode single JSON file with bundle report will be generated. (default: server)
-  -h, --host <host>           Host that will be used in `server` mode to start HTTP server. (default: 127.0.0.1)
-  -p, --port <n>              Port that will be used in `server` mode to start HTTP server. Should be a number or `auto` (default: 8888)
-  -r, --report <file>         Path to bundle report file that will be generated in `static` mode. (default: report.html)
-  -t, --title <title>         String to use in title element of html report. (default: pretty printed current date)
-  -s, --default-sizes <type>  Module sizes to show in treemap by default.
-                              Possible values: stat, parsed, gzip (default: parsed)
-  -O, --no-open               Don't open report in default browser automatically.
-  -e, --exclude <regexp>      Assets that should be excluded from the report.
-                              Can be specified multiple times.
-  -l, --log-level <level>     Log level.
-                              Possible values: debug, info, warn, error, silent (default: info)
-  -h, --help                  output usage information
-```
-
-<h2 align="center" id="size-definitions">Size definitions</h2>
-
-webpack-bundle-analyzer reports three values for sizes. `defaultSizes` can be used to control which of these is shown by default. The different reported sizes are:
-
-### `stat`
-
-This is the "input" size of your files, before any transformations like
-minification.
-
-It is called "stat size" because it's obtained from Webpack's
-[stats object](https://webpack.js.org/configuration/stats/).
-
-### `parsed`
-
-This is the "output" size of your files. If you're using a Webpack plugin such
-as Uglify, then this value will reflect the minified size of your code.
-
-### `gzip`
-
-This is the size of running the parsed bundles/modules through gzip compression.
-
-<h2 align="center">Selecting Which Chunks to Display</h2>
-
-When opened, the report displays all of the Webpack chunks for your project. It's possible to filter to a more specific list of chunks by using the sidebar or the chunk context menu.
-
-### Sidebar
-
-The Sidebar Menu can be opened by clicking the `>` button at the top left of the report. You can select or deselect chunks to display under the "Show chunks" heading there.
-
-### Chunk Context Menu
-
-The Chunk Context Menu can be opened by right-clicking or `Ctrl`-clicking on a specific chunk in the report. It provides the following options:
-
- * **Hide chunk:** Hides the selected chunk
- * **Hide all other chunks:** Hides all chunks besides the selected one
- * **Show all chunks:** Un-hides any hidden chunks, returning the report to its initial, unfiltered view
-
-<h2 align="center">Troubleshooting</h2>
-
-### I don't see `gzip` or `parsed` sizes, it only shows `stat` size
-
-It happens when `webpack-bundle-analyzer` analyzes files that don't actually exist in your file system, for example when you work with `webpack-dev-server` that keeps all the files in RAM. If you use `webpack-bundle-analyzer` as a plugin you won't get any errors, however if you run it via CLI you get the error message in terminal:
-```
-Error parsing bundle asset "your_bundle_name.bundle.js": no such file
-No bundles were parsed. Analyzer will show only original module sizes from stats file.
-```
-To get more information about it you can read [issue #147](https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/147).
-
-<h2 align="center">Other tools</h2>
-
-- [Statoscope](https://github.com/smelukov/statoscope/blob/master/packages/ui-webpack/README.md) - Webpack bundle analyzing tool to find out why a certain module was bundled (and more features, including interactive treemap)
-
-<h2 align="center">Maintainers</h2>
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://avatars3.githubusercontent.com/u/302213?v=4&s=150">
-        </br>
-        <a href="https://github.com/th0r">Yuriy Grunin</a>
-      </td>
-      <td align="center">
-        <img width="150" height="150"
-        src="https://avatars3.githubusercontent.com/u/482561?v=4&s=150">
-        </br>
-        <a href="https://github.com/valscion">Vesa Laakso</a>
-      </td>
-    </tr>
-  <tbody>
-</table>
-
-
-[npm]: https://img.shields.io/npm/v/webpack-bundle-analyzer.svg
-[npm-url]: https://npmjs.com/package/webpack-bundle-analyzer
-
-[node]: https://img.shields.io/node/v/webpack-bundle-analyzer.svg
-[node-url]: https://nodejs.org
-
-[deps]: https://david-dm.org/webpack-contrib/webpack-bundle-analyzer.svg
-[deps-url]: https://david-dm.org/webpack-contrib/webpack-bundle-analyzer
-
-[tests]: http://img.shields.io/travis/webpack-contrib/webpack-bundle-analyzer.svg
-[tests-url]: https://travis-ci.org/webpack-contrib/webpack-bundle-analyzer
-
-[downloads]: https://img.shields.io/npm/dt/webpack-bundle-analyzer.svg
-[downloads-url]: https://npmjs.com/package/webpack-bundle-analyzer
-
-<h2 align="center">Contributing</h2>
-
-Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions on contributing :tada:
