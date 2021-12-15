@@ -64,28 +64,5 @@ new BundleAnalyzerPlugin(options?: object)
 |**`excludeAssets`**|`{null\|pattern\|pattern[]}` where `pattern` equals to `{String\|RegExp\|function}`|Default: `null`. Patterns that will be used to match against asset names to exclude them from the report. If pattern is a string it will be converted to RegExp via `new RegExp(str)`. If pattern is a function it should have the following signature `(assetName: string) => boolean` and should return `true` to *exclude* matching asset. If multiple patterns are provided asset should match at least one of them to be excluded. |
 |**`logLevel`**|One of: `info`, `warn`, `error`, `silent`|Default: `info`. Used to control how much details the plugin outputs.|
 
-<h2 align="center">Usage (as a CLI utility)</h2>
 
-You can analyze an existing bundle if you have a webpack stats JSON file.
-
-You can generate it using `BundleAnalyzerPlugin` with `generateStatsFile` option set to `true` or with this simple
-command:
-
-```bash
-webpack --profile --json > stats.json
-```
-
-If you're on Windows and using PowerShell, you can generate the stats file with this command to [avoid BOM issues](https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/47):
-
-```
-webpack --profile --json | Out-file 'stats.json' -Encoding OEM
-```
-
-Then you can run the CLI tool.
-
-```
-webpack-bundle-analyzer bundle/output/path/stats.json
-```
-
-<h2 align="center">Options (for CLI)</h2>
 
