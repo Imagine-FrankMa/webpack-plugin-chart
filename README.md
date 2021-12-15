@@ -5,11 +5,11 @@
     <img width="200" height="200"
       src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
-  <h1>Webpack Bundle Analyzer</h1>
-  <p>Visualize size of webpack output files with an interactive zoomable treemap.</p>
+  <h1>Webpack Plugin Chart</h1>
+  <p>打包查看你的项目资源</p>
 </div>
 
-<h2 align="center">Install</h2>
+<h2 align="center">安装</h2>
 
 ```bash
 # NPM
@@ -18,7 +18,7 @@ npm install --save-dev webpack-plugin-chart
 yarn add -D webpack-plugin-chart
 ```
 
-<h2 align="center">Usage (as a plugin)</h2>
+<h2 align="center">使用</h2>
 
 ```js
 const  WebpackPluginChart= require('webpack-plugin-chart');
@@ -30,7 +30,7 @@ module.exports = {
 }
 ```
 
-It will create an interactive treemap visualization of the contents of all your bundles.
+
 
 
 功能与使用:
@@ -43,7 +43,7 @@ It will create an interactive treemap visualization of the contents of all your 
 And the best thing is it supports minified bundles! It parses them to get real size of bundled modules.
 And it also shows their gzipped sizes!
 
-<h2 align="center">Options (for plugin)</h2>
+<h2 align="center">配置</h2>
 
 ```js
 new BundleAnalyzerPlugin(options?: object)
