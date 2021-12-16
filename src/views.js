@@ -53,8 +53,7 @@ app.get('/', (req, res) => {
               document.title=msg.data.reportTitle  
             }
             if(msg.event==='compilationData'){
-              let compilationArr=msg.data.split('')
-              console.log(compilationArr,'compilationArr')
+              console.log(msg.data,'compilationData')
               box.innerHTML=msg.data
 
 
