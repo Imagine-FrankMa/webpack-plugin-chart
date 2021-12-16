@@ -44,7 +44,7 @@ new BundleAnalyzerPlugin(options?: object)
 ```
 
 |Name|Type|Description|
-|:--:|:--:|:----------|
+|:--:|:--:|:----------:|
 
 |**`analyzerPort`**|`{Number}` or `auto`|Default: `8899`. 默认启动的浏览器端口|
 
