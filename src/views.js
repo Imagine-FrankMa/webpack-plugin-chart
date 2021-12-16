@@ -24,16 +24,16 @@ app.get('/', (req, res) => {
 			<title>资源查看大师</title>
 		</head>
 		<body>
-			<h1 >login and now: ${data}</h1>
+			<h1 >一个简约大气的资源查看器: ${data}</h1>
       <div id="app" ></div>
       <script type="text/javascript">
-      
+      let websocketPort=8899
       try {
-        ws = new WebSocket('ws://127.0.0.1:2048');
+        ws = new WebSocket(ws://127.0.0.1:${8899});
         console.log(ws,'ws');
     } catch (err) {
       console.warn(
-        "Couldn't connect to analyzer websocket server so you'll have to reload page manually to see updates in the treemap"
+        "需要重新建立websocket连接 "
       );
     }
 
@@ -46,16 +46,20 @@ app.get('/', (req, res) => {
           
       ws.onclose = function() {    
           alert("Closed");    
-      };    
+      };   
           
       ws.onerror = function(err) {    
           alert("Error: " + err);    
       };
       var box = document.getElementById('app'); //获取 box
       ws.onmessage = function (evt) { 
-        console.log(evt,'evt')
-        box.innerHTML= JSON.stringify(evt.data)
- 
+        const msg = JSON.parse(evt.data);
+        console.log(msg,'msg')
+        if(msg.event==='configData'){
+          document.title=msg.data.reportTitle
+          
+        }
+     
      };   
 
     </script>
@@ -67,18 +71,18 @@ app.get('/', (req, res) => {
 	return res.send(html)
 })
 
-app.listen({port:8900}, () => {
-  console.log(`Example app listening at http://localhost:${8900}`)
+let appPort=8899
+app.listen({port:appPort}, () => {
+  console.log(`Example app listening at http://127.0.0.1:${appPort}`)
 })
 
 async function startServer(compilation, opts) {
   console.log('compilation');
   
   const {
-    analyzerPort = 8888,
-    host = '127.0.0.1',
-    reportTitle = 'this is giao',
-    WebSocketPort=2048
+    analyzerPort = "",
+    host = '',
+    reportTitle = '',
   } = opts || {};
 
 // http 应用用于打开页面  websocket 用于通讯
@@ -88,6 +92,7 @@ async function startServer(compilation, opts) {
     // 服务端websocket
 
   new Promise(resolve => {
+    appPort=analyzerPort
     server.listen(analyzerPort, host, () => {
       const url = `http://${host}:${analyzerPort}`;
       
@@ -97,7 +102,8 @@ async function startServer(compilation, opts) {
     });
   }).then(()=>{
     
-    const wss = new WebSocket.Server({port:WebSocketPort})
+    const wss = new WebSocket.Server({server})
+
     wss.on('connection', ws => {
       ws.on('error', err => {
         if (err.errno) return;
@@ -109,7 +115,18 @@ async function startServer(compilation, opts) {
     console.log('compilation',compilation);
     
     
-       ws.send(compilation+'');
+       ws.send(JSON.stringify({
+        event: 'compilationData',
+        data: '121'
+      }))
+
+      ws.send(JSON.stringify({
+        event: 'configData',
+        data: {reportTitle,analyzerPort}
+      }))
+
+   
+   
       return {
         ws: wss,
         http: server,

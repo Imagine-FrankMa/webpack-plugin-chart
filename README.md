@@ -1,25 +1,20 @@
-[![npm][npm]][npm-url]
-[![node][node]][node-url]
-[![deps][deps]][deps-url]
-[![tests][tests]][tests-url]
-[![downloads][downloads]][downloads-url]
+
 
 <div align="center">
   <a href="https://github.com/webpack/webpack">
     <img width="200" height="200"
       src="https://webpack.js.org/assets/icon-square-big.svg">
   </a>
-  <h1>Webpack Bundle Analyzer</h1>
-  <p>Visualize size of webpack output files with an interactive zoomable treemap.</p>
+  <h1>Webpack Bundle Chart</h1>
 </div>
 
 <h2 align="center">Install</h2>
 
 ```bash
 # NPM
-npm install --save-dev webpack-bundle-analyzer
+npm install --save-dev webpack-bundle-chart
 # Yarn
-yarn add -D webpack-bundle-analyzer
+yarn add -D webpack-bundle-chart
 ```
 
 <h2 align="center">Usage (as a plugin)</h2>
