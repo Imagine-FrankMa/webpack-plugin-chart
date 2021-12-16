@@ -42,8 +42,8 @@ new BundleAnalyzerPlugin(options?: object)
 
 | **Name**   | **Type**  | **Description**   | 
 | ---------- | --------- | ---------- | 
-| analyzerPort | `{Number}` or `auto`  |Default: `8899`. 默认启动的浏览器端口| 
-| reportTitle    | `{String\|function}`| 浏览器句柄标题名称| 
+| analyzerPort | `{Number}`  |Default: `8899`. 默认启动的浏览器端口| 
+| reportTitle    | `{String}`| 浏览器句柄标题名称| 
 
 
 
