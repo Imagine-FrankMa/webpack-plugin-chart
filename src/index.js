@@ -6,7 +6,7 @@ const viewer=require('./views')
     // 实例属性配置
     this.opts = {
       analyzerMode: 'server',
-      analyzerHost: '127.0.01',
+      analyzerHost: 'localhost',
       reportFilename: null,
       reportTitle:opts&&opts.reportTitle||'打包资源查看' ,
       // deprecated
